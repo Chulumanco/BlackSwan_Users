@@ -1,0 +1,195 @@
+// Fonts Family
+$fontDS: 'Dancing Script', cursive;
+$fontMT: 'Montserrat', sans-serif;
+$fontMW: 'Merriweather', serif;
+
+// COLORS
+$black: black;
+$orenge: #FF8C00;
+
+// BASE
+*{
+  box-sizing:border-box
+}
+
+a{
+  text-decoration:none;
+  transition: all .3s ease;
+}
+
+body{
+  font-family: $fontMW;
+  font-size: 16px;
+  line-height:1.5;
+}
+
+// HERO
+.hero{
+  text-align:center;
+  position:relative;
+  height: auto;
+  padding-bottom:80px;
+  background:$orenge ;
+  background-size:cover;
+  color:#fff;
+  overflow:hidden;
+  
+  h1{
+    margin:50px 0 20px;
+    font-family: $fontMT;
+    font-size:35px;
+    span{
+      font: 700 60px/1 $fontDS;
+      display:block;
+    }
+  }
+  
+  h2{
+    margin-left: auto;
+    margin-right: auto;
+    font-size:1em;
+    font-weight:400;
+    padding:20px;
+  }
+  
+  @media only screen and (min-width:37.5em){
+    &{
+      // height:80vh;
+    }
+    
+    h1{
+      font-size:50px;
+      span{
+        font-size: 76px;
+      }
+    }
+    h2{
+      width: 76%;
+      font-size:18px;
+    }
+    
+  }
+  
+}
+
+// WRAPPER
+.wrapper{
+  margin: 0 auto;
+  width:96%;
+  max-width:1120px;
+
+}
+
+// SECTION
+.section{
+  padding: 60px 0;
+  
+  // TITLE   
+  &__title{
+    font-size:24px;
+    color:$black;
+    text-align:center;
+    font-family: $fontMT;
+    margin: 14px 0;
+ }
+  
+  // TEXT INTRO   
+  &__intro{
+    display:block;
+    text-align:center;
+    margin:0 5% 30px;
+    
+    // media query 700px     
+    @media only screen and (min-width:43.75em){
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+    
+  }
+  
+  // MOD
+  &--cta{
+    color:whitesmoke;
+    background:orange;
+  }
+}
+
+// BOX ICONS
+.box{
+  display:flex;
+  flex: 1 0 100%;
+  margin-bottom:20px;
+  background:#454545;
+    
+  &__grid{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  &__title{
+    font-family:$fontMT;
+  }
+  
+  &__more{
+    color:$orenge;
+  }
+  
+  &__content{
+    color:orange;
+    text-align:center;
+    padding:20px;
+    
+    > i{
+      color:$black;
+    }
+   
+    &:hover{
+      .box__more{
+        color:darken($orenge, 5%);
+        i{
+          padding-left:4px;
+          transition: all .2s ease-in-out;
+        }
+      }
+    }
+    
+  }
+  
+
+  // media query 700px  
+  @media only screen and (min-width:43.75em){
+      flex:0 0 30%;
+  }
+  
+}
+
+
+// BUTTON
+.btn{
+  color:#fff;
+  font-family:$fontMT;
+  text-align:center;
+  display:block;
+  margin: 0 auto;
+  max-width:300px;
+  padding:12px 18px;
+  border-radius:100px;
+  background:$orenge;
+  
+  &:hover{
+    background: darken($orenge, 5%);
+  }
+}
+
+// Footer
+.footer{
+  color:#fff;
+  text-align:center;
+  padding:10px 0;
+  background:$black;
+  p{
+    opacity:.65;
+  }
+  
+}
