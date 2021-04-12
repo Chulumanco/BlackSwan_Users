@@ -3,7 +3,7 @@
     <ul class="nav">
         <li><router-link to="/">Home</router-link></li>
         <li ><router-link to="/login">Login</router-link></li>
-        <!-- <li v-if="!loggedIN"><router-link to="/register">Register</router-link></li> -->
+       <li v-if="!loggedIN"><router-link to="/register">Register</router-link></li> 
         <li v-if="loggedIN"><router-link to="/main">Main</router-link></li>
     </ul>
 

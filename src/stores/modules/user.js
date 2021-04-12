@@ -4,14 +4,14 @@ import axios from "axios";
 export default {
     state: { status: '',
     token: localStorage.getItem('token') || '',
-    user : {}
+    users : {}
 },
     getters: {
     loggedIN(state){
         return state.token!==null;
     },
     loggedInUser: state=>{
-        return state.user.id
+        return state.users
     }
    
     },
@@ -19,7 +19,7 @@ export default {
         retrieveToken(state,token,user){
         state.status = 'success'
         state.token = token
-        state.user =user
+        state.users =user
         },
         LOGOUT(state){
             state.token=null
@@ -27,15 +27,15 @@ export default {
     },
     actions:
     {
-         LOGIN({commit},user) {
+         LOGIN({commit},payload) {
             return new Promise((resolve,reject)=>{
-        axios.post(`login_check`,{email:user.email,
-            password:user.password,
+        axios.post(`login_check`,{email:payload.email,
+            password:payload.password,
            
         })
         .then(response =>{
             const token = response.data.token
-            const user =response.data.user
+            const user =response.data.payload
             localStorage.setItem('access_token',token)
             axios.defaults.headers.common['Authorization']=token
             commit('retrieveToken',token,user)  

@@ -93,14 +93,14 @@
       </v-flex>
     </v-layout>
   </v-container>
-  <div class="footer">
+  <!-- <div class="footer">
     <p>&copy; BlackSwan Group</p>
-</div>
+</div> -->
 </div>
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
+
 
 export default {
   name: "Register",
