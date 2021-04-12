@@ -2,25 +2,52 @@
 import axios from "axios";
 
 export default {
-    state: {},
-    getters: {},
-    mutations: {},
-    actions: {
-        LOGIN: ({ commit }, payload) => {
-            return new Promise((resolve, reject) => {
-                axios
-                    .post(`login_check`, payload)
-                    .then(({ data, status }) => {
-                        if (status === 200) {
-                            resolve(true);
-                        }
-                    })
-                    .catch(error => {
-                        reject(error);
-                    });
-            });
+    state: { status: '',
+    token: localStorage.getItem('token') || '',
+    user : {}
+},
+    getters: {
+    loggedIN(state){
+        return state.token!==null;
+    },
+    loggedInUser: state=>{
+        return state.user.id
+    }
+   
+    },
+    mutations: {
+        retrieveToken(state,token,user){
+        state.status = 'success'
+        state.token = token
+        state.user =user
         },
-       
+        LOGOUT(state){
+            state.token=null
+        }
+    },
+    actions:
+    {
+         LOGIN({commit},user) {
+            return new Promise((resolve,reject)=>{
+        axios.post(`login_check`,{email:user.email,
+            password:user.password,
+           
+        })
+        .then(response =>{
+            const token = response.data.token
+            const user =response.data.user
+            localStorage.setItem('access_token',token)
+            axios.defaults.headers.common['Authorization']=token
+            commit('retrieveToken',token,user)  
+            resolve(response)
+        })
+        .catch(error =>{
+            console.log(error)
+            reject(error)
+        })
+    })
+    },
+   
         REGISTER: ({ commit }, {  email,name,surname,phone, companyName,plainPassword }) => {
             return new Promise((resolve, reject) => {
                 axios
@@ -43,6 +70,25 @@ export default {
                     });
             });
         },
+        
+        // LOGOUT(context){
+        //     axios.defaults.headers.common['Authorization'] ='Bearer' +context.state.token
+        //     if(context.getters.loggedIN)
+        //     return new Promise((resolve, reject) => {
+        //      axios.post('/logout')
+        //      .then(response=>{
+        //          localStorage.removeItem('access_token')
+        //          context.commit('LOGOUT')
+        //          resolve(response)
+        //      })
+        //      .catch(error =>{
+        //          localStorage.removeItem('access_token')
+        //          context.commit('LOGOUT')
+        //          reject(error)
+        //      })
+        //     })
+            
+        // },
         REFRESH_TOKEN: () => {
             return new Promise((resolve, reject) => {
                 axios

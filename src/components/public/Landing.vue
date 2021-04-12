@@ -1,8 +1,19 @@
 <template>
-<div>
+<div>	
+    <ul class="nav">
+        <li><router-link to="/">Home</router-link></li>
+        <li ><router-link to="/login">Login</router-link></li>
+        <!-- <li v-if="!loggedIN"><router-link to="/register">Register</router-link></li> -->
+        <li v-if="loggedIN"><router-link to="/main">Main</router-link></li>
+    </ul>
+
 <section class="hero">
+
     <h1><span>BlackSwan </span>RE-IMAGINE ECONOMIC POSSIBILITY 2024</h1>
-    <h2><a class="btn" href="#">Get In Touch</a></h2>
+    <!-- <h2><a class="btn" href="#">Get In Touch</a></h2> -->
+    <modal ref="modal"></modal>
+  <button class="btn" @click="openModal">Get In Touch</button>
+   <!-- <button class="btn" href='/login/'>Login</button> -->
 </section>
 <section class="section">
     <div class="wrapper">
@@ -30,30 +41,43 @@ Our mission is to create a compelling economic future for our people, our custom
         </div>
     </div>
     <template>
-           <GetInTouch />
+           <!-- <GetInTouch /> -->
     </template>
 </section>
-<div class="section section--cta">
+<!-- <div class="section section--cta">
     <div class="wrapper">
         <h2 class="section__title">SOME TITLE</h2>
         <p class="section__intro">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas faucibus mollis interdum. Curabitur blandit tempus porttitor.</p>
     </div>
-</div>
+</div> -->
+
+
 <div class="footer">
     <p>&copy; BlackSwan Group</p>
 </div>
 </div>
 </template>
 <script>
-import GetInTouch from './GetInTouch'
-export default {
-    name:"landing",
-    components: {GetInTouch},
-    data:()=>({
+// import GetInTouch from './GetInTouch'
 
+import modal from './GetInTouch'
+export default {
+    name:"home",
+    components: { modal },
+    data:()=>({
     }),
-    mounted: {
+    computed:{  
+       loggedIN(){
+           return this.$store.getters.loggedIN
+          
+       }
+        },
+
+   
+   methods: {
+     openModal() { this.$refs.modal.show() }//executing the show method of child
     }
+    
 }
 
 </script>

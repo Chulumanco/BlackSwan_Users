@@ -1,5 +1,6 @@
 
 <template>
+<div>
 <v-container fill-height>
     <v-layout align-center justify-center>
         <v-flex xs12 sm8 md6>
@@ -13,21 +14,21 @@
                         color="red"
                         :value="error"
                         icon="close">
-                        The given credantials do not matchs</v-alert>
+                        Incorrect Credentials</v-alert>
                     </v-toolbar>
                     <v-card-text>
                         <v-text-field v-model="email"
                         prepend-icon="person"
                         name="login" 
                         label="Login" 
-                        type="text">
+                        type="text" :rules="[rules.required]">
                         </v-text-field>
                          <v-text-field 
                          v-model="password"
                          prepend-icon="lock"
                         name="password" 
                         label="Password" 
-                        type="text">
+                        type="text"  :rules="[rules.required]">
                         </v-text-field>
                     </v-card-text>
                     <v-divider light></v-divider>
@@ -42,7 +43,10 @@
     </v-layout>
 </v-container>
 
-
+<div class="footer">
+    <p>&copy; BlackSwan Group</p>
+</div>
+</div>
 </template>
 <script>
 //import { defineComponent } from '@vue/composition-api'
@@ -52,17 +56,21 @@ export default {
     data:() =>({
       email:'',
       password:'',
-      error:false
+      error:false,
+       rules: {
+      required: (value) => !!value || "Required Field",
+       }
     }),
+   
     methods:{
         login(){
             this.$store.dispatch("LOGIN",{
                 email:this.email,
-                password:this.password
+                password:this.password,
             })
             // eslint-disable-next-line no-unused-vars
             .then(success =>{
-                this.$router.push("/")
+                this.$router.push({name:'home'})
             // eslint-disable-next-line no-unused-vars
             }).catch(error=>{
                 this.error=true;
@@ -72,4 +80,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+ @import 'src/assets/styles/_variables.scss'
+</style>
+
 

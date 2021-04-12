@@ -19,7 +19,7 @@
 </template>
 <script>
 import Detail from "./Detail";
-// import DetailsModal from './DetailsModal'
+//import DetailsModal from './DetailsModal'
 export default {
   name: "employeedetails",
   components: { Detail},

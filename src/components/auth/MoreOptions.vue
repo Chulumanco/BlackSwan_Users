@@ -55,7 +55,7 @@
 export default {
   name: "moreOptions",
   data: () => ({
-    loading: false,
+    loading: true,
     imageName: "",
     imageUrl: "",
     imageFile: "",

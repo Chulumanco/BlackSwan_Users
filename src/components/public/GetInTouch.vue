@@ -1,100 +1,144 @@
 <template>
-  <div>
-    <form class="vue-form">
-         <div class="error-message">
-      <p v-show="!email.valid">Oh, please enter a valid email address.</p>
-    </div>
-      <fieldset>
+  <v-layout row justify-center>
+    <v-dialog v-model="showModal" max-width="60%" scrollable>
+      <v-card>
+        <!-- <v-card-title>
+          <span class="Headline">Message</span>
+        </v-card-title> -->
+        <v-card-text>
+          <v-container>
+            <v-form>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="fullname"
+                      :rules="nameRules"
+                      label="First name"
+                      required
+                    ></v-text-field>
+                  </v-col>
 
-        <legend class="reservation-form-title">Get In Touch</legend>
-        <div>
-          <label class="label" for="name">Name</label>
-          <input type="text" name="name" v-model="name" required="" />
-        </div>
-         <div>
-          <label class="label" for="name">Surname</label>
-          <input type="text" name="name" v-model="surname" required="" />
-        </div>
-        <div>
-          <label class="label" for="phone">Phone Number</label>
-          <input type="text" name="phone" v-model="phone" required="" />
-        </div>
-        <div>
-          <label class="label" for="email">Email</label>
-          <input type="email" name="email" :class="{ email , error: !email.valid }"
-               v-model="email.value"  />
-        </div>
-
-        <div>
-          <label class="label" for="textarea">Message</label>
-          <textarea class="message" name="textarea" v-model="message" required="" ></textarea>
-          <span class="counter"></span>
-        </div>
-      </fieldset>
-      <v-spacer></v-spacer>
-     <v-btn rounded color="success" @click="createMessage()">Sende Message</v-btn>
-    </form>
-  </div>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="lastname"
+                      :rules="nameRules"
+                      label="Last name"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <!-- <v-col class="d-flex" cols="12" sm="4">
+                    <v-select
+                      :items="companyName"
+                      label="Company Name"
+                      required
+                    ></v-select>
+                  </v-col> -->
+                </v-row>
+                <v-row>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="email"
+                      :rules="emailRules"
+                      label="E-mail"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                      v-model="phonenumber"
+                      :rules="nameRules"
+                      label="Phone No"
+                      required
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-textarea
+                      clearable
+                      clear-icon="mdi-close-circle"
+                      label="Message"
+                      value="Send Message to black swan:  "
+                    ></v-textarea>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" @click="hide">Close</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="green" dark @click="submit()">Send Message</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 </template>
-
 <script>
-const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 export default {
-  name: "getInTouch",
+  name: "formModal",
   data: () => ({
-    errored: false,
-    name: "",
-    surname: "",
-    phone: "",
-    email: {
-        value: "jo@hnd.oe",
-        valid: true
-      },
-    message: "",
-    user:""
-      
-  }),
-  methods:{
-      createMessage() {
-        
-          this.$store.dispatch("ADD_MESSAGE",{
-                        name:this.name,
-                        surname:this.surname,
-                        phone:this.phone,
-                        email:this.email,
-                        message:this.message,
-                        user:this.user
-          // eslint-disable-next-line no-unused-vars
-          }).then(({status})=>{
-             console.log("Message sent")
-          // eslint-disable-next-line no-unused-vars
-          }).catch(error=>{
-            this.errored=true; 
-          })
-      
+    showModal: false,
 
-      },
-     
-    // validate by type and value
-    validate: function(type, value) {
-      if (type === "email") {
-        this.email.valid = this.isEmail(value) ? true : false;
-      }
-    },
-    // check for valid email adress
-    isEmail: function(value) {
-      return emailRegExp.test(value);
-    },
+    // id: Number,
+    fullname: "",
+    lastname: "",
+    phonenumber: "",
+    email: "",
+    // companyName: ['DigitalKungfu', 'FireSaleHardware', 'Pipleline Generator', 'TechLeadBay','TechDealNetwork'],
+    message: "",
     
-  watch: {
-    // watching nested property
-    "email.value": function(value) {
-      this.validate("email", value);
-    }
-  }
-  }
+    nameRules: [(v) => !!v || "Required Field"],
+    emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+/.test(v) || "E-mail must be valid",
+    ],
+  }),
+  computed:{
+ 
+      loggedIN : function(){ return this.$store.getters.loggedIN},
+      userId: function(){ return this.$store.getters.loggedInUser}
+    
+  },
+  methods: {
+    submit() {
+      this.$store
+        .dispatch("POST_MESSAGE", {
+          fullname: this.fullname,
+          lastname: this.lastname,
+          ponenumber: this.phonenumber,
+          email: this.email,
+          message: this.message,
+          user:this.userId
+        })
+        .then((response) => {
+          this.$store.commit("SET_NOTIFICATION", {
+            display: true,
+            text: "Message Sent",
+            alertClass: "success",
+          });
+          (this.fullname = ""),
+            (this.lastname = ""),
+            (this.phonenumber = ""),
+            (this.email = ""),
+            (this.message = "");
+          this.$router.push({
+            name: "employeedetails",
+            params: {
+              id: response.data.id,
+            },
+          });
+        });
+    },
+
+    show() {
+      this.showModal = true;
+    },
+    hide() {
+      this.showModal = false;
+    },
+  },
 };
 </script>
-<style lang="scss">
-@import "src/assets/styles/form.scss";
-</style>

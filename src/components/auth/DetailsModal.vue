@@ -12,20 +12,20 @@
                    <v-list three-line subheader>
                        <v-list-item v-for="(user,key) in userdetails"  v-bind:key="key">
                     <v-subheader>
-                     {{user.fullname}}{{' '}}{{user.surname}}
+                     {{name}}{{' '}}{{surname}}
                     </v-subheader>
                     <v-subheader>
-                   {{user.companyname}}
+                   {{companyname}}
                     </v-subheader>
                      <v-subheader>
-                    {{user.phonenumber}}
+                    {{phonenumber}}
                     </v-subheader>
                      <v-subheader>
-                    {{user.email}}
+                    {{email}}
                     </v-subheader>
                         <template>
                         <v-textarea outlined>
-                         {{user.message}}
+                         {{message}}
                         </v-textarea>
                         </template>
                      </v-list-item>

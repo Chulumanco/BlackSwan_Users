@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.6.0",
     "material-design-icons-iconfont": "^6.1.0",
     "validate.js": "^0.13.1",
     "vue": "^2.6.11",
@@ -25,11 +26,12 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "compass-mixins": "^0.12.10",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.1",
     "sass": "^1.32.0",
-    "sass-loader": "^10.0.0",
+    "sass-loader": "^7.3.1",
     "vue-cli-plugin-vuetify": "~2.3.0",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"

@@ -28,7 +28,7 @@ mutations:{
     SET_NOTIFICATION: (state,{display,text,alertClass})=>{
         state.notification.display =display
         state.notification.text =text
-        state.notification.alertClass =alertClass
+        state.notification.class =alertClass
     },
     SET_DISPLAY_SEARCH_LIST:(state,payload)=>{
         state.displaySearchList=payload;

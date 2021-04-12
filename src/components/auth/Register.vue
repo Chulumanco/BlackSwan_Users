@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
 <template>
+<div>
   <v-container fill-height>
     <v-layout align-center justify-center>
       <v-flex xs12 sm8 md6>
@@ -92,7 +93,12 @@
       </v-flex>
     </v-layout>
   </v-container>
+  <div class="footer">
+    <p>&copy; BlackSwan Group</p>
+</div>
+</div>
 </template>
+
 <script>
 // import { defineComponent } from '@vue/composition-api'
 
@@ -161,3 +167,7 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+ @import 'src/assets/styles/_variables.scss'
+</style>
+

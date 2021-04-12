@@ -6,8 +6,8 @@
             </v-btn>
         </v-list-item-action>
         <v-list-item-content>
-            <v-list-item-title>{{users.user_name}}</v-list-item-title>
-            <v-list-item-subtitle>{{users.message}}</v-list-item-subtitle>
+            <v-list-item-title>{{name}}</v-list-item-title>
+            <v-list-item-subtitle>{{message}}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action-text></v-list-item-action-text>
         <v-icon v-if="users.isRead" color="green">check_circle</v-icon>
@@ -24,6 +24,13 @@ export default {
   data: ()=>({
       selected:[2]
   }),
+   computed:{  
+       loggedIN(){
+           return this.$store.getters.loggedIN
+          
+   }
+   },
+
   methods:{
       toggle(index){
           console.log(index)
